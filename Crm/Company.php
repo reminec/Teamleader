@@ -161,6 +161,11 @@ class Company
     private $description;
 
     /**
+     * @var string
+     */
+    private $backgroundInfoHtml;
+
+    /**
      * @param string $bic
      */
     public function setBic($bic)
@@ -644,6 +649,28 @@ class Company
     }
 
     /**
+     * @return string
+     */
+    public function getBackgroundInfoHtml()
+    {
+        return $this->backgroundInfoHtml;
+    }
+
+    /**
+     * @param string $backgroundInfoHtml
+     *
+     * @return $this
+     */
+    public function setBackgroundInfoHtml($backgroundInfoHtml)
+    {
+        $this->backgroundInfoHtml = $backgroundInfoHtml;
+
+        return $this;
+    }
+
+
+
+    /**
      * Initialize a Company with raw data we got from the API
      *
      * @param  array   $data
@@ -699,7 +726,9 @@ class Company
     {
         $return = array();
 
-        $return['name'] = $this->getName();
+        if ($this->getName()) {
+            $return['name'] = $this->getName();
+        }
 
         if ($this->getEmail()) {
             $return['email'] = $this->getEmail();
@@ -748,6 +777,9 @@ class Company
         }
         if ($this->getDescription()) {
             $return['description'] = $this->getDescription();
+        }
+        if ($this->getBackgroundInfoHtml()) {
+            $return['background_info_html'] = $this->getBackgroundInfoHtml();
         }
 
         if ($this->getExtraAddresses()) {
